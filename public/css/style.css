@@ -1,0 +1,32 @@
+body{
+	font-family: "Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans unicode",tahoma,sans-serif;
+}
+.inline-block{
+	display:inline-block;
+}
+.header{
+	padding:30px;
+	border-bottom:1px solid #ddd;
+}
+.pt10{
+	padding-top:10px;
+}
+
+.logo{
+	width:100px;
+	margin-top:10px;
+}
+.login-form{
+	margin-top:30px;	
+}
+.login-form .form-control{
+	box-shadow:none !important
+}
+.body-panel{
+	margin-top:50px;
+}
+
+.btn-login{
+	background-color:#ff4800;
+	color:#fff;
+}
