@@ -27,8 +27,8 @@ class SocialAuthController extends Controller
     public function createOrGetUser($providerUser)
     {
 
-    	dd($user);
     	
+
         $account = User::whereProvider('facebook')
             ->whereProviderUserId($providerUser->getId())
             ->first();
@@ -39,10 +39,6 @@ class SocialAuthController extends Controller
 
         } else {
 
-            $account = new SocialAccount([
-                'provider_user_id' => $providerUser->getId(),
-                'provider' => 'facebook'
-            ]);
 
             $user = User::whereEmail($providerUser->getEmail())->first();
 
@@ -51,11 +47,13 @@ class SocialAuthController extends Controller
                 $user = User::create([
                     'email' => $providerUser->getEmail(),
                     'name' => $providerUser->getName(),
+                    'provider_user_id' => $providerUser->getId(),
+                	'provider' => 'facebook'
                 ]);
             }
 
-            $account->user()->associate($user);
-            $account->save();
+            //$account->user()->associate($user);
+            $user->save();
 
             return $user;
 
