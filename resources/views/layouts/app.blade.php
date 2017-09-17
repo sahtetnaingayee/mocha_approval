@@ -7,15 +7,20 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" type="text/css" href="{!!asset('plugins/bootstrap/css/bootstrap.min.css')!!}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
+    <title>{{ config('app.name', 'Mocha') }}</title>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{!!asset('css/style.css')!!}">
+
+    <script src="{!!asset('plugins/jquery.min.js')!!}"></script>
+
+    <script type="text/javascript" src="{!!asset('plugins/bootstrap/js/bootstrap.min.js')!!}"></script>
 </head>
 <body>
-    <div id="app">
+
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
@@ -30,7 +35,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        <a href=""><img src="{!!asset('img/logo.png')!!}" class="logo"></a>
+                        <a href="{!!url('home')!!}"><img src="{!!asset('img/logo.png')!!}" class="logo"></a>
                     </a>
                 </div>
 
@@ -39,6 +44,7 @@
                     <ul class="nav navbar-nav">
                         &nbsp;
                     </ul>
+
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
@@ -72,10 +78,18 @@
             </div>
         </nav>
 
+
         @yield('content')
-    </div>
+   
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/mocha.js') }}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.dropdown-toggle').dropdown();
+        });
+   </script>
 </body>
 </html>

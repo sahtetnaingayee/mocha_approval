@@ -7,8 +7,16 @@
             <img src="{!!asset('img/dashboard.png')!!}" class="img-responsive img-block">
         </div>
         <div class="col-md-4">
-            <form class="form-horizontal login-form" method="POST" action="{{ route('login') }}">
+            <form class="form-horizontal login-form" method="POST" action="{{ url('login') }}">
                         {{ csrf_field() }}
+
+                        <div class="form-group">
+                            
+                                
+                            <a href="{!!url($login_url)!!}" class="btn btn-primary btn-block">Login With Facebook</a>
+                        
+                        </div>
+                        <p class="text-center">OR</p>
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             
