@@ -49,11 +49,18 @@ class HomeController extends Controller
 
     public function getHome(){
 
-        $page_list=PageUser::where('user_id',Auth::user()->id)->get();
+        if(Auth::check()){
 
-        $list=Post::orderBy('created_at','DESC')->get();
-        
-        return view('frontend.page',compact('list','page_list'));
+            $page_list=PageUser::where('user_id',Auth::user()->id)->get();
+
+            $list=Post::orderBy('created_at','DESC')->get();
+            
+            return view('frontend.page',compact('list','page_list'));
+            
+        }else{
+
+            return redirect('client-login');
+        }
     }
 
 
