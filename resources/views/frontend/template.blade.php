@@ -44,9 +44,18 @@
 					<ul>
 						<li class="menu_panel">
 							<img src="{!!asset('img/m-logo.png')!!}" class="img-logo">
+							<a href="{{ route('logout') }}" class="btnLogout" 
+                                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                <i class="fa fa-power-off" aria-hidden="true"></i>
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
 						</li>
 						<li style="min-height:600px;">
-							<div id="calendar" class="has-toolbar"> </div>
+							
 						</li>
 					</ul>
 				</nav>
@@ -70,19 +79,19 @@
 				<div class="col-md-4 col-md-offset-4">
 					<ul class="f_menu">
 						<li>
-							<a href="">
+							<a href="{!!url(isset($pageId)?'calendar/'.$pageId:'')!!}">
 								<img src="{!!asset('img/icon/f-1.png')!!}" class="img-block">
 								<h4>Calendar</h4>
 							</a>
 						</li>
 						<li>
-							<a href="">
+							<a href="{!!url(isset($pageId)?'approval/'.$pageId:'')!!}">
 								<img src="{!!asset('img/icon/f-2.png')!!}" class="img-block">
 								<h4>Approval</h4>
 							</a>
 						</li>
 						<li>
-							<a href="">
+							<a href="{!!url(isset($pageId)?'scheduled/'.$pageId:'')!!}">
 								<img src="{!!asset('img/icon/f-3.png')!!}" class="img-block">
 								<h4>Scheduled</h4>
 							</a>
@@ -106,7 +115,7 @@
 
     <script type="text/javascript">
     
-    		var $url='{!!url("postcount/20/20")!!}';
+    		var $url='{!!url("postcount/")!!}';
             AppCalendar.init($url); 
 
     </script>

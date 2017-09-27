@@ -29,7 +29,10 @@
                         <h3>{!!$row->name!!}</h3>
 
                         <div class="d-panel">
-                            <a href="{!!url('page/'.$row->page_id.'/post')!!}" class="btn btn-moca">Select</a>
+                            <a href="{!!url('admin_page/user/'.$row->page_id)!!}" class="btn btn-moca"><i class="fa fa-plus-circle" aria-hidden="true"></i> User</a>
+
+                            <a href="{!!url('admin_page/'.$row->page_id)!!}" class="btn btn-moca"><i class="fa fa-list"></i> Posts</a>
+                            
                         </div>
                     </div>
                 </div>

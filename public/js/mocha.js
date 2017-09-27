@@ -12,6 +12,22 @@ $(document)
         this.rows = minRows + rows;
     });
 
+
+    $(document)
+    .one('focus.autoExpand1', 'textarea.autoExpand1', function(){
+        var savedValue = this.value;
+        this.value = '';
+        this.baseScrollHeight = this.scrollHeight;
+        this.value = savedValue;
+    })
+    .on('input.autoExpand1', 'textarea.autoExpand1', function(){
+        var minRows = this.getAttribute('data-min-rows')|0, rows;
+        this.rows = minRows;
+        rows = Math.ceil((this.scrollHeight - this.baseScrollHeight) / 17);
+        this.rows = minRows + rows;
+    });
+
+
     $(document)
     .one('focus.previewExpand', 'textarea.previewExpand', function(){
         var savedValue = this.value;
@@ -52,9 +68,23 @@ function numberOnly(event) {
 $(document).on("keyup","textarea.new-message",function(){
     
     $key=$(this).val().replace(/\n/g, '<br />');
-    
-    $("div.preview_message").html($key);
 
+    $("div.preview_message").html($key);    
+
+    
+});
+
+
+$(document).on("keyup","textarea.message",function(){
+
+
+    
+    $key=$(this).val().replace(/\n/g, '<br />');
+
+
+    $("div.translate_message p.msg").html($key);    
+
+    
 });
 
 
@@ -63,10 +93,12 @@ $(document).on("keyup","textarea.new-message",function(){
 $("input[name='file']").change(function(){
     
     readURL(this);
+    var post_type=$("input[name='post_type']:checked").val();
 
-    if(input.files[0].type!='video/mp4'){
 
-        $("div.play").addClass("dn");    
+    if(post_type=="20"){
+
+        $("div.play").removeClass("dn");    
     }
 
 });
@@ -127,15 +159,20 @@ $("input[name='post_type']").on("change",function(e){
 
         $("div#video_thumbnail").addClass("dn");
 
-        $("span#label").text("Photo");
+        $("span#label").text("Photo:");
 
         $("input[name='file']").attr("accept","image/*");
+        $("p.standard-label").addClass("dn");
+
+        $("div.play").addClass("dn");    
 
     }else{/* IF VIDOE */
 
         $("div#video_thumbnail").removeClass("dn");
-        $("input[name='file']").attr("accept","video/mp4");
-        $("span#label").text("Video");
+        $("input[name='file']").attr("accept","image/*");
+        $("span#label").text("Video Thumbnail:");
+        $("p.standard-label").removeClass("dn");
+        $("div.play").removeClass("dn");    
     }
 });
 
@@ -265,6 +302,34 @@ $(document).on("change","select[name='budget_type']",function(){
         $("#schedule_panel").addClass("dn");
 
     }
+});
+
+
+$(document).on("submit","form.frmComment",function(e){
+
+    e.preventDefault();
+    
+    var $form = $(this);
+
+    $.ajax({
+
+        type: $form.attr('method'),
+        url: $form.attr('action'),
+        data: $form.serialize(),
+        dataType: 'json',
+        success: function(data) {
+
+
+            if (data.success) {
+
+                
+                $("div.comment_panel").append(data.html);
+            } else {
+                
+                
+            }
+        }
+    });
 }); 
 
 

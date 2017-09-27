@@ -14,6 +14,10 @@ body{
 	
 }
 
+.pt10{
+	padding-top:10px;
+}
+
 .l_panel{
 	position:fixed;
 	top: 50%;
@@ -127,6 +131,18 @@ span.world{
     width:347px;
     font-size:12px;
     line-height:20px;
+    max-height:172px;
+    overflow:hidden;
+}
+
+.translate_message{
+
+	padding:10px;
+    width:347px;
+    font-size:12px;
+    line-height:20px;
+    max-height:172px;
+    overflow:hidden;
 }
 .preview-img{
 	position:relative;
@@ -415,6 +431,78 @@ span.world{
 }
 .pn{
 	pointer-events:none;
+}
+
+.fc .fc-button-group>:first-child{
+	text-transform:capitalize !important
+}
+.fc-toolbar .fc-state-active, .fc-toolbar .ui-state-active{
+	text-transform:capitalize !important
+}
+.btnSubmit{
+	background-color:#ff4800;
+	border:1px solid #ff4800;
+	color:#fff;
+
+}
+.btnSubmit:hover{
+
+	background-color:#ff4800;
+	border:1px solid #ff4800;
+	color:#fff;
+}
+.fc-time{
+	display:none !important;
+}
+.img_thumbnail{
+	width:40px;
+	margin-right:10px;
+}
+
+.comment_panel{
+	padding:20px;
+	margin-bottom:50px;
+}
+.frmComment button{
+	margin-top:10px;
+}
+.r{
+	margin-bottom:10px;
+	clear:both;
+	overflow:hidden;
+}
+
+.r{
+    width:100%;
+    margin-bottom:5px;
+}
+.r .p_p{
+    width:15%;
+}
+.r .p_p img{
+	width:85%;
+	border:1px solid #ddd;
+	border-radius:50%;
+	-moz-border-radius:50%;
+	-webkit-border-radius:50%;
+
+}
+
+.r .p_tx{
+    width:80%;
+    padding-top:5px;
+    padding-right:5px;
+}
+.fc-title a{
+	color:#fff !important;
+	text-decoration:none !important;
+}
+
+.default{
+
+	padding:0px;
+	margin:0px;
+	color:#666;
 }
 
 

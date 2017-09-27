@@ -10,6 +10,18 @@
 	define("VIA_CLIENT",1);
 	define("VIA_ADMIN",2);
 
+	define("USD",1);
+	define("THB",2);
+	define("MMK",2);
+
+	define("CURRENCY",json_encode(array(
+
+		USD=>'USD',
+		THB=>'THB',
+		MMK=>'MMK',
+		
+		)));
+
 	define("REIVEW",10);
 	define("APPROVED",20);
 

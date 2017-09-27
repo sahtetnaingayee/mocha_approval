@@ -1,12 +1,22 @@
-<div class="clearfix"></div>
+@if($info->via==VIA_CLIENT)
 <div class="r">
   <div class="p_p pull-left pl10">
-      <img src="https://fb-s-a-a.akamaihd.net/h-ak-fbx/v/t1.0-1/p50x50/15178258_1162349153856168_6393080911327794252_n.png?oh=8ce649bdb13349c9a2546d67bf372364&amp;oe=5A13D361&amp;__gda__=1512559417_bd81f49ee78de33c8ad60c9b6e1528c8">
+    <img src="{!!$row->Page->profile_path!!}">
   </div>
   <div class="p_tx pull-left">
-      <p>
-      	{!!$info->message!!}
-      </p>
-
+    <p>{!!$info->message!!}</p>
   </div>
 </div>
+<div class="clearfix"></div>
+@else
+<div class="r">
+  <div class="p_tx pull-left pl10">
+    <p class="text-right">{!!$info->message!!}</p>
+
+  </div>
+  <div class="p_p pull-left">
+    <img src="{!!asset('img/icon/mocha.png')!!}">
+  </div>
+
+</div>
+@endif

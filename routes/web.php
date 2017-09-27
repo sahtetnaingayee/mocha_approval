@@ -14,22 +14,16 @@ use App\User;
 
 
 Auth::routes();
-Route::get('/', 'HomeController@getLogin')->name('/');
+Route::get('/', 'HomeController@getClientLogin')->name('/');
 Route::get('/home', 'HomeController@getPage')->name('home');
 // Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/redirect', 'SocialAuthController@redirect')->name('redirect');
 
 Route::get('login', [ 'as' => 'login', 'uses' => 'HomeController@getLogin']);
+Route::get('client-login', [ 'as' => 'login', 'uses' => 'HomeController@getClientLogin']);
 
-Route::get('home','HomeController@getHome');
-
-Route::post('comment','HomeController@postComment');
-Route::post('approve','HomeController@postApprove');
-
-Route::get('postcount/{date}/{user_id}','HomeController@getPostCount');
-
-Route::get('post/{user_id}/{date}','HomeController@getDatePost');
+Route::post('client-login', [ 'as' => 'client-login', 'uses' => 'HomeController@postClientLogin']);
 
 
 Route::get('/facebook/login', function(SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb)
@@ -150,7 +144,7 @@ Route::get('/facebook/login', function(SammyK\LaravelFacebookSdk\LaravelFacebook
 	    // Log the user into Laravel
 	    Auth::login($user);
 
-	    return redirect('home');
+	    return redirect('page');
 
 	    //return redirect('/')->with('message', 'Successfully logged in with Facebook');
 	});
@@ -158,6 +152,25 @@ Route::get('/facebook/login', function(SammyK\LaravelFacebookSdk\LaravelFacebook
 	
 
 Route::group(['middleware' => ['auth','web']], function () {
+
+
+	Route::get('admin_post/{user_id}/{date}','AdminController@getNewPagePost');
+
+	Route::get('admin_post/{id}/basic','AdminController@getPostBasic');
+	Route::post('admin_post/{id}/basic','AdminController@postPostBasic');
+	Route::get('admin_page/{id}','AdminController@getPageInfo');
+	Route::get('admin_page/{id}/listview','AdminController@getPageListView');
+
+	Route::get('admin_post/{pageid}/','AdminController@getPagePost');
+
+	Route::get('admin_page/post/{pageId}/{postId}','AdminController@getPostInfo');
+
+	Route::get('admin_page/user/{pageid}','AdminController@getPageUser');
+	Route::get('admin_page/new_user/{pageid}','AdminController@getAssignUser');
+	Route::post('admin_page/new_user/{pageid}','AdminController@postAssignUser');
+
+
+	
 	
 	
 	Route::get('/callback', 'SocialAuthController@callback');
@@ -178,6 +191,8 @@ Route::group(['middleware' => ['auth','web']], function () {
 
 	Route::get('post/{id}/promote','HomeController@getPostPromote');
 
+	Route::get('page/{id}','HomeController@getPageInfo');
+
 
 	/* CAMPAIGN */
 
@@ -187,6 +202,22 @@ Route::group(['middleware' => ['auth','web']], function () {
 	Route::post('campaign/basic','CampaignController@postCampaignBasic');
 
 	Route::get('page_post/{page_id}','CampaignController@getPagePost');
+
+	Route::get('home','HomeController@getHome');
+
+	Route::get('cpage/{pageId}','HomeController@getClientPage');
+
+	Route::post('comment','HomeController@postComment');
+	Route::post('approve','HomeController@postApprove');
+
+	Route::get('postcount/{date?}','HomeController@getPostCount');
+
+	Route::get('post/{date}','HomeController@getDatePost');
+
+	Route::get('approval/{pageId}','HomeController@getApproval');
+	Route::get('scheduled/{pageId}','HomeController@getScheduled');
+
+	Route::get('calendar/{pageId?}','HomeController@getCalendar');
 
 	
 

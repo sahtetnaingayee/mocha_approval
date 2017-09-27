@@ -8,8 +8,10 @@ use Facebook;
 use Auth;
 use DateTime;
 use App\Models\Page;
+use App\Models\PageUser;
 use App\Models\Comment;
 use App\Models\Post;
+use App\Models\AdminPost;
 use Flash;
 use File;
 use FacebookAds\Api;
@@ -22,7 +24,6 @@ use FacebookAds\Object\AdAccountUser;
 use Facebook\FileUpload\FacebookFile;
 use Response;
 use DB;
-
 
 
 
@@ -48,9 +49,29 @@ class HomeController extends Controller
 
     public function getHome(){
 
+        $page_list=PageUser::where('user_id',Auth::user()->id)->get();
+
         $list=Post::orderBy('created_at','DESC')->get();
         
-        return view('frontend.home',compact('list'));
+        return view('frontend.page',compact('list','page_list'));
+    }
+
+
+    public function getClientPage($pageId=''){
+
+        $page=PageUser::where('page_id',$pageId)->where('user_id',Auth::user()->id)->first();
+
+        if($page==null){
+
+            dd("Invalid Request.Go Back.");
+        }
+
+        $list=AdminPost::where('page_id',$pageId)->orderBy('created_at','DESC')->where('status','!=',APPROVED)->get();
+
+
+        return view('frontend.home',compact('list','pageId'));
+
+
     }
 
     public function postComment(Request $request){
@@ -59,9 +80,9 @@ class HomeController extends Controller
 
             $info=new Comment;
 
-            $info->created_by=0;
+            $info->created_by=Auth::user()->id;
             $info->message=$request->message;
-            $info->via=VIA_CLIENT;
+            $info->via=$request->via;
             $info->post_id=$request->post_id;
 
             $info->save();
@@ -80,9 +101,12 @@ class HomeController extends Controller
 
         if($request->ajax()){
 
-            $info=Post::where('post_id',$request->post_id)->first();
+            $info=AdminPost::where('id',$request->post_id)->first();
+
 
             $info->status=APPROVED;
+
+            $info->save();
 
             $index=$request->index;
 
@@ -94,22 +118,26 @@ class HomeController extends Controller
 
     public function getPostCount(Request $request,$type=0){
 
+        $page=PageUser::where('user_id',Auth()->user()->id)->first();
 
         if($request->ajax()){
 
 
-            $list=Post::select(DB::raw('DATE(created_at) as title'),'created_by as icon','created_at as start')->get();
+            $list=AdminPost::select(DB::raw('DATE(created_at) as title'),'created_by as icon','page_id','id','post_date as start')->where('page_id',$page->page_id)->get();
             return json_encode($list);
         }
 
     }
 
-    public function getDatePost($user_id=0,$date=''){
+    public function getDatePost($date=''){
 
+        $page=PageUser::where('user_id',Auth()->user()->id)->first();
 
-        $list=Post::orderBy('created_at','DESC')->get();
+        $list=AdminPost::orderBy('created_at','DESC')->where('post_date',$date)->where('page_id',$page->page_id)->get();
         
-        return view('frontend.home',compact('list'));
+        $pageId=$page->page_id;
+        
+        return view('frontend.home',compact('list','pageId'));
 
     }
     /**
@@ -132,7 +160,47 @@ class HomeController extends Controller
             return view('welcome',compact('login_url'));
 
         }
+
+        // if(Auth::user()){
+
+        //     return redirect('home');   
+
+        // }else{
+
+        //     return view('frontend.login');
+        // }
         
+    }
+
+    public function getClientLogin()
+    {
+
+        if(Auth::user()){
+
+            return redirect('home');   
+
+        }else{
+
+            return view('frontend.login');
+        }
+        
+    }
+
+    public function postClientLogin(Request $request){
+
+        if (Auth::attempt(['email' => $request->email, 'password' =>$request->password])) {
+
+            return redirect('home');
+
+        }else{
+
+            Flash::warning("Invalid Password.");
+
+            return redirect()->back();
+        }
+
+        
+
     }
 
 
@@ -149,19 +217,12 @@ class HomeController extends Controller
 
         return view('backend.page',compact('list'));
 
-        // $this->fb->setDefaultAccessToken((string) Auth::user()->access_token);
-
-        // $response = $this->fb->get('/me?fields=accounts{picture{url},cover,name,access_token,category}');
-
-        // $list=json_decode($response->getBody());
-
-        // $list=$list->accounts->data;
-
-        
-
     }
 
+
     public function getPageBasic(){
+
+
 
         $this->fb->setDefaultAccessToken((string) Auth::user()->access_token);
 
@@ -461,6 +522,42 @@ class HomeController extends Controller
         
 
 
+    }
+
+    public function getPageInfo($id=0){
+
+        $page=Page::where('page_id',$id)->first();
+
+        return view('backend.page_info',compact('page','id'));
+
+    }
+
+    public function getApproval($pageId=''){
+
+        $page_list=PageUser::where('user_id',Auth::user()->id)->get();
+
+        $list=AdminPost::orderBy('created_at','DESC')->where('status',REIVEW)->where('page_id',$pageId)->get();
+        
+        return view('frontend.home',compact('list','pageId'));
+    }
+
+
+     public function getScheduled($pageId=''){
+
+        $page_list=PageUser::where('user_id',Auth::user()->id)->get();
+
+        $list=AdminPost::orderBy('created_at','DESC')->where('status',APPROVED)->where('page_id',$pageId)->get();
+        
+        return view('frontend.home',compact('list','pageId'));
+    }
+
+    public function getCalendar($pageId=''){
+
+        $page_list=PageUser::where('user_id',Auth::user()->id)->get();
+
+        $list=AdminPost::orderBy('created_at','DESC')->where('status',APPROVED)->where('page_id',$pageId)->get();
+        
+        return view('frontend.calendar',compact('list','pageId'));
     }
 
 

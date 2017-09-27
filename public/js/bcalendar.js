@@ -145,21 +145,39 @@ var AppCalendar = function(url) {
 
                 eventRender: function(event, element) {
 
+                    console.log(event);
+
                     if(event.icon){  
 
-                        element.find(".fc-title").text(".");
+                        var url='http://localhost:8888/moca/public/';
+                        var link_url=url+'/admin_page/post/'+event.page_id+'/'+event.id;
+
+                        var html="<a href='"+link_url+"'><img src='"+url+event.image_path+"' class='img_thumbnail'>"+event.title+"</a>";
+
+                        element.find(".fc-title").html(html);
                         // element.find(".fc-title").prepend(html);
                         
                     }
 
+                    
+
                 } ,
+
+                dayRender:function (date, cell) {
+
+                    // The cell has a data-date tag with the date we can use vs date.format('YYYY-MM-DD')
+                    var theDate = $(cell).data('date');
+                    // Find the day number td for the date
+                    var fcDaySkel = $("#calendar div.fc-content-skeleton td[data-date='"+theDate+"'].fc-day-number");
+                    fcDaySkel.prepend("<img src='' id='editar_control_"+theDate+"_id'/>");
+                },
 
 
                 dayClick: function(date, jsEvent, view) {
 
-                    var user_id=$("input[name='user_id']").val();
+                    var page_id=$("input[name='page_id']").val();
                     /* Go to the new URL */
-                    window.location.href='http://localhost:8888/moca/public/post/'+date.format();
+                    window.location.href='http://localhost:8888/moca/public/admin_post/'+page_id+'/'+date.format();
                 }       
 
             });

@@ -42,7 +42,8 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                        <li><a href="#">Dashboard</a></li>
+                        <li><a href="{!!url('page')!!}">Page</a></li>
                     </ul>
 
 
@@ -83,7 +84,7 @@
    
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    
     <script src="{{ asset('js/mocha.js') }}"></script>
 
     <script type="text/javascript">
