@@ -364,7 +364,7 @@ class AdminController extends Controller
         $info->created_by=Auth::user()->id;
         $info->translate=$request->translate;
         $info->currency=$request->currency;
-        $info->budget=$request->budget;
+        $info->budget=$request->budget==''?0:$request->budget;
 
         $info->save();
 
