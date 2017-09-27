@@ -177,7 +177,8 @@ var AppCalendar = function(url) {
 
                     var page_id=$("input[name='page_id']").val();
                     /* Go to the new URL */
-                    window.location.href='http://localhost:8888/moca/public/admin_post/'+page_id+'/'+date.format();
+                    //window.location.href='http://localhost:8888/moca/public/admin_post/'+page_id+'/'+date.format();
+                    window.location.href='http://174.138.31.228/admin_post/'+page_id+'/'+date.format();
                 }       
 
             });
