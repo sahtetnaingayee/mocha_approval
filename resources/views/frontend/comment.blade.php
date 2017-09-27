@@ -1,7 +1,7 @@
 @if($info->via==VIA_CLIENT)
 <div class="r">
   <div class="p_p pull-left pl10">
-    <img src="{!!$info->Page->profile_path!!}">
+    <img src="{!!asset('img/icon/user.png')!!}">
   </div>
   <div class="p_tx pull-left">
     <p>{!!$info->message!!}</p>

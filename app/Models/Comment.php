@@ -18,4 +18,9 @@ class Comment extends Model
 		return $this->hasMany('App\Models\OrderDetail','parent_id');		
 	}
 
+	public function Page(){
+
+		return $this->hasOne('App\Models\OrderDetail','parent_id');			
+	}
+
 }
