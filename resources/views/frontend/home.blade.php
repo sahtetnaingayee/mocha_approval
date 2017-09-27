@@ -41,6 +41,8 @@
                                 <img src="{!!asset($row->image_path)!!}" id="imgpreview">
                                 <div class="play {!!$row->type==VIDEO ?'':'dn'!!}"></div>
                            </div>
+
+                          @if($row->status==REVIEW)
                            <div class="action-panel">
                                 <ul>
                                     <li>
@@ -112,7 +114,9 @@
                                   </div>
                                 
                            </div>
+                          @endif
                   </div>
+
     				</div>
 
     			</div>
