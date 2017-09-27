@@ -37,6 +37,7 @@ $(document).on("submit","form.frmComment",function(e){
 
             if (data.success) {
 
+                $('textarea').val('');
                 
             	$("div.comment_panel").append(data.html);
             } else {
