@@ -159,7 +159,8 @@ var AppCalendar = function(url) {
 
                     var user_id=$("input[name='user_id']").val();
                     /* Go to the new URL */
-                    window.location.href='http://localhost:8888/moca/public/post/'+date.format();
+                    // window.location.href='http://localhost:8888/moca/public/post/'+date.format();
+                    window.location.href='http://174.138.31.228/post/'+date.format();
                 }       
 
             });
