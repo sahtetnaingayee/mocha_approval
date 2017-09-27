@@ -22,7 +22,7 @@ return [
         'app_secret' => env('FACEBOOK_APP_SECRET'),
         'default_graph_version' => 'v2.10',
         //'enable_beta_mode' => true,
-        //'http_client_handler' => 'guzzle',
+        'http_client_handler' => 'curl',
     ],
 
     /*
