@@ -149,7 +149,8 @@ var AppCalendar = function(url) {
 
                     if(event.icon){  
 
-                        var url='http://localhost:8888/moca/public/';
+                        // var url='http://localhost:8888/moca/public/';
+                        var url='http://174.138.31.228/';
                         var link_url=url+'/admin_page/post/'+event.page_id+'/'+event.id;
 
                         var html="<a href='"+link_url+"'><img src='"+url+event.image_path+"' class='img_thumbnail'>"+event.title+"</a>";
