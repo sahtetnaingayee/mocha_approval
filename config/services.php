@@ -38,7 +38,7 @@ return [
         'client_id' => '244180429265105',
         'client_secret' => '128cd953c9e7d4dd18f80d2f3faec37f',
         // 'redirect' => 'http://localhost/moca/public/callback',
-        'redirect' => 'http://http://174.138.31.228/callback',
+        'redirect' => 'http://174.138.31.228/callback',
     ],
 
 ];
