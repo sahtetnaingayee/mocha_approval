@@ -154,7 +154,7 @@ class AdminController extends Controller
     }
 
     public function postLogin(Request $request){
-        
+
         if (Auth::attempt(['email' => $request->email, 'password' =>$request->password,'type'=>ADMIN])) {
 
             return redirect('page');
@@ -477,7 +477,7 @@ class AdminController extends Controller
         $user->access_token='';
         $user->account_id='';
         $user->ads_id='';
-
+        $user->type=CLIENT;
         $user->password=Hash::make($request->password);
 
         $user->save();
