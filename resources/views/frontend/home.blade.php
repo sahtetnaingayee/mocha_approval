@@ -120,7 +120,7 @@
         @endforeach
       @else
         <div class="n_panel">
-        <div class="col-md-4 col-md-offset-4 p0">
+        <div class="col-md-4 col-md-offset-4">
           <div class="alert alert-info">
               <p>No Record Found.</p>
           </div>
