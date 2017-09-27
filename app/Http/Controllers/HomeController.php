@@ -548,7 +548,7 @@ class HomeController extends Controller
 
         $list=AdminPost::orderBy('created_at','DESC')->where('status',APPROVED)->where('page_id',$pageId)->get();
         
-        return view('frontend.home',compact('list','pageId'));
+        return view('frontend.scheduled',compact('list','pageId'));
     }
 
     public function getCalendar($pageId=''){
