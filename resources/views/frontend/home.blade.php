@@ -42,7 +42,7 @@
                                 <div class="play {!!$row->type==VIDEO ?'':'dn'!!}"></div>
                            </div>
 
-                          @if($row->status==REVIEW)
+                          @if($row->status==REIVEW)
                            <div class="action-panel">
                                 <ul>
                                     <li>
