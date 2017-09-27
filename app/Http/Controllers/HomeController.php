@@ -188,7 +188,10 @@ class HomeController extends Controller
 
     public function postClientLogin(Request $request){
 
-        if (Auth::attempt(['email' => $request->email, 'password' =>$request->password])) {
+
+
+        if (Auth::attempt(['email' => $request->email, 'password' =>$request->password,'type'=>CLIENT])) {
+
 
             return redirect('home');
 
@@ -220,67 +223,7 @@ class HomeController extends Controller
     }
 
 
-    public function getPageBasic(){
-
-
-
-        $this->fb->setDefaultAccessToken((string) Auth::user()->access_token);
-
-        $response = $this->fb->get('/me?fields=accounts{picture{url},cover,name,access_token,category}');
-
-        $list=json_decode($response->getBody());
-
-        $list=$list->accounts->data;
-
-        return view('backend.page_basic',compact('list'));
-
-    }
-
-    public function postPageBasic(Request $request){
-
-        // $this->firebase->setPath('pages/');
-
-        
-
-        $page=$request->page;
-
-        if(count($page)){
-
-            foreach ($page as $value) {
-
-                $tmp_page=explode('SHNA',$value);
-
-
-                $info=new Page;
-
-                $info->page_id=$tmp_page[0];
-                $info->name=$tmp_page[1];
-                $info->access_token=$tmp_page[2];
-                $info->profile_path=$tmp_page[3];
-                $info->cover_path=$tmp_page[4];
-                $info->category=$tmp_page[5];
-                $info->status=ACTIVE;
-
-
-                $info->save();
-                // $this->firebase->push([
-
-                //     'id'  =>$tmp_page[0],
-                //     'name' =>$tmp_page[1],
-                //     'access_token' =>$tmp_page[2],
-                //     'profile_path'=>$tmp_page[3],
-                //     'cover_path'=>$tmp_page[4],
-                    
-                // ]);
-                // # code...
-            }
-
-            Flash::success('Successfully saved.');
-
-            return redirect('page');
-        }
-
-    } 
+    
 
     public function getListedPage(){
 

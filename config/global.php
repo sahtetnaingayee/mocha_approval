@@ -2,6 +2,9 @@
 
 	define('ADMIN_PREFIX','admin');
 
+	define('ADMIN','10');
+	define('CLIENT','20');
+
 	define("ACTIVE",1);
 
 	define("PHOTO",'10');

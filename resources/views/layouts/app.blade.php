@@ -41,10 +41,12 @@
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
+                    @if(Auth::check())
                     <ul class="nav navbar-nav">
                         <li><a href="#">Dashboard</a></li>
                         <li><a href="{!!url('page')!!}">Page</a></li>
                     </ul>
+                    @endif
 
 
                     <!-- Right Side Of Navbar -->

@@ -37,6 +37,8 @@ class AdminController extends Controller
      * @return void
      */
 
+
+
     public function getNewPagePost($pageId='',$date=''){
 
     	$page=Page::where('page_id',$pageId)->first();
@@ -148,22 +150,14 @@ class AdminController extends Controller
 
         }
 
-        // if(Auth::user()){
-
-        //     return redirect('home');   
-
-        // }else{
-
-        //     return view('frontend.login');
-        // }
         
     }
 
-    public function postClientLogin(Request $request){
+    public function postLogin(Request $request){
+        
+        if (Auth::attempt(['email' => $request->email, 'password' =>$request->password,'type'=>ADMIN])) {
 
-        if (Auth::attempt(['phone' => $request->username, 'password' =>'123456'])) {
-
-            return redirect('home');
+            return redirect('page');
 
         }else{
 
@@ -171,8 +165,6 @@ class AdminController extends Controller
 
             return redirect()->back();
         }
-
-        
 
     }
 

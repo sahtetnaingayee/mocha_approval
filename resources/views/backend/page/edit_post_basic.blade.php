@@ -162,7 +162,7 @@
                     </div>
 
                     <div class="comment_panel">
-                        {!! Form::open(array('url' =>'comment','class'=>'form-horizontal frmComment oh','files'=>true,'method'=>'post')) !!}
+                        {!! Form::open(array('url' =>'admin_comment','class'=>'form-horizontal frmComment oh','files'=>true,'method'=>'post')) !!}
                             <input type="hidden" name="post_id" value="{!!$info->id!!}">
                             <label>Remark *</label>
                             <input type="hidden" name="via" value="{!!VIA_ADMIN!!}">
@@ -174,6 +174,7 @@
                           $comment=$info->Comment;
                         ?>
                         <div class="clearfix"></div> 
+                        <div style="margin-top:20px"></div> 
                         @if(count($comment))
                             @foreach($comment as $c)
                                 @if($c->via==VIA_CLIENT)

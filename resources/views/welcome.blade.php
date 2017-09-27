@@ -3,20 +3,19 @@
 @section('content')
 <div class="container">
     <div class="row">   
-        <div class="col-md-4 col-md-offset-2">
-            <img src="{!!asset('img/dashboard.png')!!}" class="img-responsive img-block">
-        </div>
-        <div class="col-md-4">
+        
+        <div class="col-md-4 col-md-offset-4">
+            
             <form class="form-horizontal login-form" method="POST" action="{{ url('login') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group">
                             
                                 
-                            <a href="{!!url($login_url)!!}" class="btn btn-primary btn-block">Login With Facebook</a>
+                            <!-- <a href="{!!url($login_url)!!}" class="btn btn-primary btn-block">Login With Facebook</a> -->
                         
                         </div>
-                        <p class="text-center">OR</p>
+                        <!-- <p class="text-center">OR</p> -->
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             

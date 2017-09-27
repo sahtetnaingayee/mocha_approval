@@ -33,7 +33,7 @@
                         <div class="col-md-6">
                         @include('flash::message')
 
-                        {!! Form::open(array('url' =>'admin_page/new_user/'.$pageId,'class'=>'form-horizontal frmBasic','files'=>true,'method'=>'post')) !!}
+                        {!! Form::open(array('url' =>'admin_page/new_user/'.$pageId,'class'=>'form-horizontal frmBasic','files'=>true,'method'=>'post','autocomplete'=>'off')) !!}
 
 
                             <div class="form-group oh">

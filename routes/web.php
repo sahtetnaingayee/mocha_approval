@@ -15,12 +15,13 @@ use App\User;
 
 Auth::routes();
 Route::get('/', 'HomeController@getClientLogin')->name('/');
-Route::get('/home', 'HomeController@getPage')->name('home');
+
 // Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/redirect', 'SocialAuthController@redirect')->name('redirect');
 
-Route::get('login', [ 'as' => 'login', 'uses' => 'HomeController@getLogin']);
+Route::get('login', [ 'as' => 'login', 'uses' => 'AdminController@getLogin']);
+Route::post('login', [ 'as' => 'login', 'uses' => 'AdminController@postLogin']);
 Route::get('client-login', [ 'as' => 'login', 'uses' => 'HomeController@getClientLogin']);
 
 Route::post('client-login', [ 'as' => 'client-login', 'uses' => 'HomeController@postClientLogin']);
@@ -149,11 +150,13 @@ Route::get('/facebook/login', function(SammyK\LaravelFacebookSdk\LaravelFacebook
 	    //return redirect('/')->with('message', 'Successfully logged in with Facebook');
 	});
 
-	
-
-Route::group(['middleware' => ['auth','web']], function () {
+Route::get('/home', 'HomeController@getPage');
 
 
+Route::group(['middleware' => ['auth','web','auth.admin']], function () {
+
+
+	Route::get('page','HomeController@getPage');
 	Route::get('admin_post/{user_id}/{date}','AdminController@getNewPagePost');
 
 	Route::get('admin_post/{id}/basic','AdminController@getPostBasic');
@@ -169,17 +172,22 @@ Route::group(['middleware' => ['auth','web']], function () {
 	Route::get('admin_page/new_user/{pageid}','AdminController@getAssignUser');
 	Route::post('admin_page/new_user/{pageid}','AdminController@postAssignUser');
 
+	Route::get('page/basic','AdminController@getPageBasic');
+
+	Route::post('page/basic','AdminController@postPageBasic');
+
+	Route::post('admin-comment','HomeController@postComment');
+
+
+});
+	
+
+Route::group(['middleware' => ['auth','web','auth.client']], function () {
 
 	
-	
-	
+
 	Route::get('/callback', 'SocialAuthController@callback');
 
-	Route::get('page','HomeController@getPage');
-
-	Route::get('page/basic','HomeController@getPageBasic');
-
-	Route::post('page/basic','HomeController@postPageBasic');
 
 	Route::get('listedpage','HomeController@getListedPage');
 
