@@ -149,13 +149,33 @@ var AppCalendar = function(url) {
 
                     if(event.icon){  
 
-                        // var url='http://localhost:8888/moca/public/';
-                        var url='http://174.138.31.228/';
+
+                        var $status='';
+
+                        var url='http://localhost:8888/moca/public/';
+                       // var url='http://174.138.31.228/';
                         var link_url=url+'/admin_page/post/'+event.page_id+'/'+event.id;
 
                         var html="<a href='"+link_url+"'><img src='"+url+event.image_path+"' class='img_thumbnail'>"+event.title+"</a>";
 
                         element.find(".fc-title").html(html);
+
+                        if(event.status==10){//Review
+
+                            $status='progress';
+
+                        }else if(event.status==20){
+
+                            $status='approved';
+
+                        }else{
+
+                            $status='normal';
+                        }
+
+                        element.addClass($status);
+
+
                         // element.find(".fc-title").prepend(html);
                         
                     }
@@ -178,8 +198,8 @@ var AppCalendar = function(url) {
 
                     var page_id=$("input[name='page_id']").val();
                     /* Go to the new URL */
-                    //window.location.href='http://localhost:8888/moca/public/admin_post/'+page_id+'/'+date.format();
-                    window.location.href='http://174.138.31.228/admin_post/'+page_id+'/'+date.format();
+                    window.location.href='http://localhost:8888/moca/public/admin_post/'+page_id+'/'+date.format();
+                    //window.location.href='http://174.138.31.228/admin_post/'+page_id+'/'+date.format();
                 }       
 
             });

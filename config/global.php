@@ -2,7 +2,10 @@
 
 	define('ADMIN_PREFIX','admin');
 
+
 	define('ADMIN','10');
+	define('STAFF','11');
+	define('MANAGER','12');
 	define('CLIENT','20');
 
 	define("ACTIVE",1);

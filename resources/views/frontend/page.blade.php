@@ -1,9 +1,9 @@
 @extends('frontend.template')
 @section('content')
 	
-		<div class="container bg-white">
+		<div class="container">
 			<div class="row">
-				<div class="col-md-4 col-md-offset-4">
+				<div class="col-md-4 col-md-offset-4 bg-white">
 					@if(isset($page_list) && count($page_list))
 						@foreach($page_list as $row)
 							<div class="panel">

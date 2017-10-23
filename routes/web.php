@@ -172,6 +172,8 @@ Route::group(['middleware' => ['auth','web','auth.admin']], function () {
 	Route::get('admin_page/new_user/{pageid}','AdminController@getAssignUser');
 	Route::post('admin_page/new_user/{pageid}','AdminController@postAssignUser');
 
+	Route::post('admin_page/new_existing_user/{pageid}','AdminController@postAssignExistingUser');
+
 	Route::get('page/basic','AdminController@getPageBasic');
 
 	Route::post('page/basic','AdminController@postPageBasic');

@@ -559,9 +559,9 @@ a.rework span {
 }
 
 .n_panel{
-    background-color:#fff;
+    
     min-height:500px;
-    padding-top:200px;
+    
 }
 
 .default{
@@ -590,6 +590,15 @@ p.budget span{
 }
 .calendar_panel{
     min-height:600px;
+}
+
+.fc-event .approved{
+    background-color:green
+}
+
+.fc-event .progress{
+
+    background-color:pink
 }
 
 

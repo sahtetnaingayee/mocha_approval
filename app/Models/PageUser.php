@@ -10,7 +10,7 @@ class PageUser extends Model
 
     protected $table='page_users';
 
-    protected $fillable = array('page_id','post_id','created_by','scheduled_publish_time');
+    protected $fillable = array('page_id','post_id','created_by','scheduled_publish_time','type');
 
 
     public function Detail(){

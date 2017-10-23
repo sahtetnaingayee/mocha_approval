@@ -115,7 +115,7 @@ class AdminController extends Controller
         if($request->ajax()){
 
 
-            $list=AdminPost::select(DB::raw('DATE(created_at) as title'),'created_by as icon','page_id','id','created_at as start')->get();
+            $list=AdminPost::select(DB::raw('DATE(created_at) as title'),'created_by as icon','page_id','id','created_at as start, status')->get();
             return json_encode($list);
         }
 
@@ -438,16 +438,19 @@ class AdminController extends Controller
 
         $list=PageUser::where('page_id',$pageId)->get();
 
+        $user_list=User::where('id','!=',Auth::user()->id)->pluck('email','id');
+        
+
         if($page==null){
 
             dd("Invalid Request.");
 
         }
 
-        return view('backend.page.new_user',compact('pageId','page','list'));
+        return view('backend.page.new_user',compact('pageId','page','list','user_list'));
     }
 
-     public function postAssignUser(Request $request,$pageId=''){
+    public function postAssignUser(Request $request,$pageId=''){
 
         $page=Page::where('page_id',$pageId)->first();
 
@@ -488,6 +491,43 @@ class AdminController extends Controller
         $info->page_id=$pageId;
         $info->user_id=$user->id;
         $info->created_by=Auth::user()->id;
+
+        $info->save();
+        Flash::success("Successfully saved.");
+
+        return redirect()->back();
+    }
+
+    public function postAssignExistingUser(Request $request,$pageId=''){
+
+
+
+        $page=Page::where('page_id',$pageId)->first();
+
+        if($page==null){
+
+            dd("Invalid Request.");
+
+        }
+
+        $info=PageUser::where('user_id',$request->user_id)->where('page_id',$pageId)->first();
+
+        if($info!=null){
+
+            Flash::warning("Already assigned.");
+
+            return redirect()->back();
+        }
+
+        $info=User::where('id',$request->user_id)->first();
+
+
+        $info=new PageUser;
+
+        $info->page_id=$pageId;
+        $info->user_id=$request->user_id;
+        $info->created_by=Auth::user()->id;
+        $info->type=$request->type;
 
         $info->save();
         Flash::success("Successfully saved.");
